@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        maven { url "http://repo.spring.io/libs-snapshot" }
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.1.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+ext {
+  springBootStarterCfServiceBrokerVersion = "2.1"
+  springBootVersion = '1.0.1.RELEASE'
+  baseName = 'spring-boot-cf-service-broker-mongo'
+  version =  '2.1'
+}
+
+war {
+    baseName = baseName
+    version =  version
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile("com.pivotal.cf.broker:spring-boot-starter-cf-service-broker:${springBootStarterCfServiceBrokerVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}") 
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}")
+    testCompile("com.pivotal.cf.broker:spring-boot-starter-cf-service-broker-tests:${springBootStarterCfServiceBrokerVersion}")
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
