@@ -37,10 +37,10 @@ configurations {
 }
 
 dependencies {
-    compile("com.pivotal.cf.broker:spring-boot-starter-cf-service-broker:${springBootStarterCfServiceBrokerVersion}")
+    compile("org.cloudfoundry.community.servicebroker:spring-boot-starter-cf-service-broker:${springBootStarterCfServiceBrokerVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}") 
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}")
-    testCompile("com.pivotal.cf.broker:spring-boot-starter-cf-service-broker-tests:${springBootStarterCfServiceBrokerVersion}")
+    testCompile("org.cloudfoundry.community.servicebroker:spring-boot-starter-cf-service-broker-tests:${springBootStarterCfServiceBrokerVersion}")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
 
