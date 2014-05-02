@@ -5,7 +5,7 @@ Sample spring boot project using the [spring-boot-starter-cf-service-broker](htt
 
 # Overview
 
-This sample project uses the [spring-boot-starter-cf-service-broker](https://github.com/spgreenberg/spring-boot-starter-cf-service-broker) to implement a MongoDB service.  The Mongo service also uses [spring-boot-starter-data-mongodb](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-starters/spring-boot-starter-data-mongodb) to persist service instances & bindings.
+This sample project uses the [spring-boot-cf-service-broker](https://github.com/spgreenberg/spring-boot-cf-service-broker) to implement a MongoDB service.  The Mongo service also uses [spring-boot-data-mongodb](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-starters/spring-boot-starter-data-mongodb) to persist service instances & bindings.
 
 ## Compatibility
 
@@ -15,7 +15,7 @@ This sample project uses the [spring-boot-starter-cf-service-broker](https://git
 
 ## Getting Started
 
-To deploy this project, be sure you first have followed the instructions for the [starter project here](https://github.com/spgreenberg/spring-boot-starter-cf-service-broker).  These instructions are temporary until the starter project is published to a maven repo.
+To deploy this project, be sure you first have followed the instructions for the [boot project here](https://github.com/spgreenberg/spring-boot-cf-service-broker).  These instructions are temporary until the starter project is published to a maven repo.
 
 You need to install MongoDB somewhere and configure connectivity in [MongoConfig.java](https://github.com/spgreenberg/spring-boot-cf-service-broker-mongo/blob/master/src/main/java/com/pivotal/cf/broker/mongodb/config/MongoConfig.java).
 
