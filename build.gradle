@@ -4,7 +4,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.1.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.2.RELEASE")
     }
 }
 
@@ -15,8 +15,8 @@ apply plugin: 'spring-boot'
 apply plugin: 'war'
 
 ext {
-  springBootStarterCfServiceBrokerVersion = "2.1"
-  springBootVersion = '1.0.1.RELEASE'
+  springBootCfServiceBrokerVersion = "2.1"
+  springBootVersion = '1.0.2.RELEASE'
   baseName = 'spring-boot-cf-service-broker-mongo'
   version =  '2.1'
 }
@@ -27,7 +27,6 @@ war {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
     maven { url "http://repo.spring.io/libs-snapshot" }
 }
@@ -37,13 +36,13 @@ configurations {
 }
 
 dependencies {
-    compile("org.cloudfoundry.community.servicebroker:spring-boot-starter-cf-service-broker:${springBootStarterCfServiceBrokerVersion}")
+    compile("org.cloudfoundry:spring-boot-cf-service-broker:${springBootCfServiceBrokerVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}") 
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}")
-    testCompile("org.cloudfoundry.community.servicebroker:spring-boot-starter-cf-service-broker-tests:${springBootStarterCfServiceBrokerVersion}")
+    testCompile("org.cloudfoundry:spring-boot-cf-service-broker-tests:${springBootCfServiceBrokerVersion}")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.11'
+    gradleVersion = '1.12'
 }
