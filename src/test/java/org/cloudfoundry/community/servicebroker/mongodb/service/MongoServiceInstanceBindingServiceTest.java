@@ -109,23 +109,23 @@ public class MongoServiceInstanceBindingServiceTest {
 	}
 	
 	@Test
-	public void serviceInstanceBindingDeletedSuccessfully() throws MongoServiceException {
+	public void serviceInstanceBindingDeletedSuccessfully() throws ServiceBrokerException {
 		ServiceInstanceBinding binding = ServiceInstanceBindingFixture.getServiceInstanceBinding();
 		when(repository.findOne(any(String.class))).thenReturn(binding);
 
-		assertNotNull(service.deleteServiceInstanceBinding(binding.getId()));
+		assertNotNull(service.deleteServiceInstanceBinding(binding.getId(), null, null, null));
 		
 		verify(mongo).deleteUser(binding.getServiceInstanceId(), binding.getId());
 		verify(repository).delete(binding.getId());
 	}
 	
 	@Test
-	public void unknownServiceInstanceDeleteCallSuccessful() throws MongoServiceException {
+	public void unknownServiceInstanceDeleteCallSuccessful() throws ServiceBrokerException {
 		ServiceInstanceBinding binding = ServiceInstanceBindingFixture.getServiceInstanceBinding();
 		
 		when(repository.findOne(any(String.class))).thenReturn(null);
 		
-		assertNull(service.deleteServiceInstanceBinding(binding.getId()));
+		assertNull(service.deleteServiceInstanceBinding(binding.getId(), null, null, null));
 		
 		verify(mongo, never()).deleteUser(binding.getServiceInstanceId(), binding.getId());
 		verify(repository, never()).delete(binding.getId());

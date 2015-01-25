@@ -6,9 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.CommandResult;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.mongodb.ServerAddress;
@@ -75,7 +79,18 @@ public class MongoAdminService {
 	public void createUser(String database, String username, String password) throws MongoServiceException {
 		try {
 			DB db = client.getDB(database);
-			db.addUser(username, password.toCharArray());
+			BasicDBList roles = new BasicDBList();
+			roles.add("readWrite");
+			DBObject command = BasicDBObjectBuilder.start("createUser", username)
+					.add("pwd", password)
+					.add("roles", new BasicDBList())
+					.get();
+			CommandResult result = db.command(command);
+			if (!result.ok()) {
+				MongoServiceException e = new MongoServiceException(result.toString());
+				logger.warn(e.getLocalizedMessage());
+				throw e;
+			}
 		} catch (MongoException e) {
 			throw handleException(e);
 		}
@@ -84,7 +99,7 @@ public class MongoAdminService {
 	public void deleteUser(String database, String username) throws MongoServiceException {
 		try {
 			DB db = client.getDB(database);
-			db.removeUser(username);
+			db.command(new BasicDBObject("dropUser", username));
 		} catch (MongoException e) {
 			throw handleException(e);
 		}

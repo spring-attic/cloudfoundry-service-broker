@@ -1,9 +1,9 @@
 package org.cloudfoundry.community.servicebroker.mongodb.service;
 
-import java.util.List;
-
 import org.cloudfoundry.community.servicebroker.exception.ServiceBrokerException;
+import org.cloudfoundry.community.servicebroker.exception.ServiceInstanceDoesNotExistException;
 import org.cloudfoundry.community.servicebroker.exception.ServiceInstanceExistsException;
+import org.cloudfoundry.community.servicebroker.exception.ServiceInstanceUpdateNotSupportedException;
 import org.cloudfoundry.community.servicebroker.model.ServiceDefinition;
 import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
 import org.cloudfoundry.community.servicebroker.mongodb.exception.MongoServiceException;
@@ -36,11 +36,6 @@ public class MongoServiceInstanceService implements ServiceInstanceService {
 	}
 	
 	@Override
-	public List<ServiceInstance> getAllServiceInstances() {
-		return repository.findAll();
-	}
-
-	@Override
 	public ServiceInstance createServiceInstance(ServiceDefinition service,
 			String serviceInstanceId, String planId, String organizationGuid,
 			String spaceGuid) 
@@ -71,11 +66,26 @@ public class MongoServiceInstanceService implements ServiceInstanceService {
 	}
 
 	@Override
-	public ServiceInstance deleteServiceInstance(String id) throws MongoServiceException {
+	public ServiceInstance deleteServiceInstance(String id, String serviceId, String planId) throws MongoServiceException {
 		mongo.deleteDatabase(id);
 		ServiceInstance instance = repository.findOne(id);
 		repository.delete(id);
 		return instance;		
+	}
+
+	@Override
+	public ServiceInstance updateServiceInstance(String instanceId, String planId)
+			throws ServiceInstanceUpdateNotSupportedException, ServiceBrokerException, ServiceInstanceDoesNotExistException {
+		ServiceInstance instance = repository.findOne(instanceId);
+		if (instance == null) {
+			throw new ServiceInstanceDoesNotExistException(instanceId);
+		}
+		repository.delete(instanceId);
+		ServiceInstance updatedInstance = new ServiceInstance(instanceId, 
+				instance.getServiceDefinitionId(), planId, instance.getOrganizationGuid(), 
+				instance.getSpaceGuid(), instance.getDashboardUrl());
+		repository.save(updatedInstance);
+		return updatedInstance;
 	}
 
 }

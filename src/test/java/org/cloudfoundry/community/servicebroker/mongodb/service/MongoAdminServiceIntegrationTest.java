@@ -10,10 +10,16 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.CommandResult;
 import com.mongodb.DB;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 
@@ -29,6 +35,7 @@ public class MongoAdminServiceIntegrationTest {
 	
 	@After
 	public void cleanup() {
+		client.getDB(MongoConfiguration.DB_NAME).command("dropAllUsersFromDatabase");
 		client.dropDatabase(MongoConfiguration.DB_NAME);
 	}
 	
@@ -59,6 +66,7 @@ public class MongoAdminServiceIntegrationTest {
 	}
 	
 	@Test
+	@DirtiesContext // because we can't authenticate twice on same DB
 	public void newUserCreatedSuccessfully() throws MongoServiceException {
 		service.createDatabase(MongoConfiguration.DB_NAME);
 		service.createUser(MongoConfiguration.DB_NAME, "user", "password");
@@ -66,9 +74,13 @@ public class MongoAdminServiceIntegrationTest {
 	}
 	
 	@Test
+	@DirtiesContext // because we can't authenticate twice on same DB
 	public void deleteUserSucceeds() throws MongoServiceException {
 		service.createDatabase(MongoConfiguration.DB_NAME);
-		client.getDB(MongoConfiguration.DB_NAME).addUser("user", "password".toCharArray());
+		DBObject createUserCmd = BasicDBObjectBuilder.start("createUser", "user").add("pwd", "password")
+				.add("roles", new BasicDBList()).get();
+		CommandResult result = client.getDB(MongoConfiguration.DB_NAME).command(createUserCmd);
+		assertTrue("create should succeed", result.ok());
 		service.deleteUser(MongoConfiguration.DB_NAME, "user");
 		assertFalse(client.getDB(MongoConfiguration.DB_NAME).authenticate("user", "password".toCharArray()));	
 	}
