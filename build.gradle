@@ -15,10 +15,10 @@ apply plugin: 'spring-boot'
 apply plugin: 'war'
 
 ext {
-  springBootCfServiceBrokerVersion = "2.1"
-  springBootVersion = '1.0.2.RELEASE'
+  springBootCfServiceBrokerVersion = "2.4.0"
+  springBootVersion = '1.1.9.RELEASE'
   baseName = 'spring-boot-cf-service-broker-mongo'
-  version =  '2.1'
+  version =  '2.4'
 }
 
 war {

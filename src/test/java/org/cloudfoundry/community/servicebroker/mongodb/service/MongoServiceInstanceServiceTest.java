@@ -65,14 +65,6 @@ public class MongoServiceInstanceServiceTest {
 	}
 	
 	@Test
-	public void serviceInstancesRetrievedCorrectly() {
-		when(repository.findAll()).thenReturn(ServiceInstanceFixture.getAllServiceInstances());
-		List<ServiceInstance> instances = service.getAllServiceInstances();
-		assertEquals(instances.get(0).getId(), ServiceInstanceFixture.getServiceInstance().getId());
-		assertEquals(instances.get(1).getId(), ServiceInstanceFixture.getServiceInstanceTwo().getId());
-	}
-	
-	@Test
 	public void newServiceInstanceCreatedSuccessfully() 
 			throws ServiceInstanceExistsException, ServiceBrokerException {
 		
@@ -139,7 +131,7 @@ public class MongoServiceInstanceServiceTest {
 		when(repository.findOne(any(String.class))).thenReturn(ServiceInstanceFixture.getServiceInstance());
 		String id = ServiceInstanceFixture.getServiceInstance().getId();
 		
-		assertNotNull(service.deleteServiceInstance(id));
+		assertNotNull(service.deleteServiceInstance(id, null, null));
 		
 		verify(mongo).deleteDatabase(id);
 		verify(repository).delete(id);
@@ -149,7 +141,7 @@ public class MongoServiceInstanceServiceTest {
 	public void unknownServiceInstanceDeleteCallSuccessful() throws ServiceBrokerException {
 		when(repository.findOne(any(String.class))).thenReturn(null);
 		
-		assertNull(service.deleteServiceInstance(SVC_INST_ID));
+		assertNull(service.deleteServiceInstance(SVC_INST_ID, null, null));
 		
 		verify(mongo).deleteDatabase(SVC_INST_ID);
 		verify(repository).delete(SVC_INST_ID);

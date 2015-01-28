@@ -7,7 +7,6 @@ import org.cloudfoundry.community.servicebroker.exception.ServiceBrokerException
 import org.cloudfoundry.community.servicebroker.exception.ServiceInstanceBindingExistsException;
 import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
 import org.cloudfoundry.community.servicebroker.model.ServiceInstanceBinding;
-import org.cloudfoundry.community.servicebroker.mongodb.exception.MongoServiceException;
 import org.cloudfoundry.community.servicebroker.mongodb.repository.MongoServiceInstanceBindingRepository;
 import org.cloudfoundry.community.servicebroker.service.ServiceInstanceBindingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,17 +63,19 @@ public class MongoServiceInstanceBindingService implements ServiceInstanceBindin
 		return binding;
 	}
 
-	@Override
-	public ServiceInstanceBinding getServiceInstanceBinding(String id) {
+	protected ServiceInstanceBinding getServiceInstanceBinding(String id) {
 		return repository.findOne(id);
 	}
 
 	@Override
-	public ServiceInstanceBinding deleteServiceInstanceBinding(String id) throws MongoServiceException {
-		ServiceInstanceBinding binding = getServiceInstanceBinding(id);
-		if (binding!= null) { 
-			mongo.deleteUser(binding.getServiceInstanceId(), id);
-			repository.delete(id);
+	public ServiceInstanceBinding deleteServiceInstanceBinding(
+			String bindingId, ServiceInstance instance, 
+			String serviceId, String planId)
+			throws ServiceBrokerException {
+		ServiceInstanceBinding binding = getServiceInstanceBinding(bindingId);
+		if (binding!= null) {
+			mongo.deleteUser(binding.getServiceInstanceId(), bindingId);
+			repository.delete(bindingId);
 		}
 		return binding;
 	}

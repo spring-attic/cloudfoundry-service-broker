@@ -22,6 +22,7 @@ public class CatalogConfig {
 					"Mongo DB", 
 					"A simple mongo implementation", 
 					true, 
+					false,
 					Arrays.asList(
 							new Plan("mongo-plan", 
 									"Default Mongo Plan", 
@@ -29,6 +30,7 @@ public class CatalogConfig {
 									getPlanMetadata())),
 					Arrays.asList("mongodb", "document"),
 					getServiceDefinitionMetadata(),
+					null,
 					null)));
 	}
 	
