@@ -19,15 +19,15 @@ public class CatalogConfig {
 		return new Catalog( Arrays.asList(
 				new ServiceDefinition(
 					"mongo", 
-					"Mongo DB", 
+					"mongo",
 					"A simple mongo implementation", 
 					true, 
 					false,
 					Arrays.asList(
-							new Plan("mongo-plan", 
-									"Default Mongo Plan", 
+							new Plan("mongo-plan",
+									"default",
 									"This is a default mongo plan.  All services are created equally.",
-									getPlanMetadata())),
+									getPlanMetadata(), true)),
 					Arrays.asList("mongodb", "document"),
 					getServiceDefinitionMetadata(),
 					null,
@@ -58,7 +58,7 @@ public class CatalogConfig {
 		Map<String,Object> costsMap = new HashMap<String,Object>();
 		
 		Map<String,Object> amount = new HashMap<String,Object>();
-		amount.put("usd", new Double(0.0));
+		amount.put("usd", 0.0);
 	
 		costsMap.put("amount", amount);
 		costsMap.put("unit", "MONTHLY");
