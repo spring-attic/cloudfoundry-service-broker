@@ -83,7 +83,7 @@ public class MongoAdminService {
 			roles.add("readWrite");
 			DBObject command = BasicDBObjectBuilder.start("createUser", username)
 					.add("pwd", password)
-					.add("roles", new BasicDBList())
+					.add("roles", roles)
 					.get();
 			CommandResult result = db.command(command);
 			if (!result.ok()) {
