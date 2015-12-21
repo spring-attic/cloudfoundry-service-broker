@@ -19,9 +19,9 @@ public class CatalogConfig {
 	public Catalog catalog() {
 		return new Catalog(Collections.singletonList(
 				new ServiceDefinition(
-						"mongo",
+						"mongodb-service-broker",
 						"Mongo DB",
-						"A simple mongo implementation",
+						"A simple MongoDB service broker implementation",
 						true,
 						false,
 						Collections.singletonList(
@@ -35,30 +35,30 @@ public class CatalogConfig {
 						null)));
 	}
 	
-/* Used by Pivotal CF console */	
-	
-	private Map<String,Object> getServiceDefinitionMetadata() {
-		Map<String,Object> sdMetadata = new HashMap<String,Object>();
+/* Used by Pivotal CF console */
+
+	private Map<String, Object> getServiceDefinitionMetadata() {
+		Map<String, Object> sdMetadata = new HashMap<>();
 		sdMetadata.put("displayName", "MongoDB");
-		sdMetadata.put("imageUrl","http://info.mongodb.com/rs/mongodb/images/MongoDB_Logo_Full.png");
-		sdMetadata.put("longDescription","MongodDB Service");
-		sdMetadata.put("providerDisplayName","Pivotal");
-		sdMetadata.put("documentationUrl","http://www.mongodb.org");
-		sdMetadata.put("supportUrl","http://www.mongodb.org");
+		sdMetadata.put("imageUrl", "http://info.mongodb.com/rs/mongodb/images/MongoDB_Logo_Full.png");
+		sdMetadata.put("longDescription", "MongoDB Service");
+		sdMetadata.put("providerDisplayName", "Pivotal");
+		sdMetadata.put("documentationUrl", "https://github.com/spring-cloud-samples/cloudfoundry-mongodb-service-broker");
+		sdMetadata.put("supportUrl", "https://github.com/spring-cloud-samples/cloudfoundry-mongodb-service-broker");
 		return sdMetadata;
 	}
 	
 	private Map<String,Object> getPlanMetadata() {
-		Map<String,Object> planMetadata = new HashMap<String,Object>();
+		Map<String,Object> planMetadata = new HashMap<>();
 		planMetadata.put("costs", getCosts());
 		planMetadata.put("bullets", getBullets());
 		return planMetadata;
 	}
-	
+
 	private List<Map<String,Object>> getCosts() {
-		Map<String,Object> costsMap = new HashMap<String,Object>();
+		Map<String,Object> costsMap = new HashMap<>();
 		
-		Map<String,Object> amount = new HashMap<String,Object>();
+		Map<String,Object> amount = new HashMap<>();
 		amount.put("usd", 0.0);
 	
 		costsMap.put("amount", amount);
