@@ -12,37 +12,29 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-apply plugin: 'war'
 
 ext {
     springCloudFoundryServiceBrokerVersion = "1.0.0.BUILD-SNAPSHOT"
-    baseName = 'mongodb-service-broker'
-    version =  '2.4'
+    version =  '0.1.0.BUILD-SNAPSHOT'
 }
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
-
-war {
-    baseName = baseName
-    version =  version
-}
 
 repositories {
     mavenCentral()
     maven { url "http://repo.spring.io/libs-snapshot" }
 }
 
-configurations {
-    providedRuntime
-}
-
 dependencies {
     compile("org.springframework.cloud:spring-cloud-cloudfoundry-service-broker:${springCloudFoundryServiceBrokerVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
-    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile(group: "org.springframework.cloud", name: "spring-cloud-cloudfoundry-service-broker", version: "${springCloudFoundryServiceBrokerVersion}", classifier: "tests")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+jar {
+    baseName = 'cloudfoundry-mongodb-service-broker'
 }
 
 task wrapper(type: Wrapper) {
