@@ -6,7 +6,7 @@ This sample project uses the Spring Cloud - Cloud Foundry Service Broker to impl
 
 ## Getting Started
 
-You need to install and run MongoDB somewhere and configure connectivity in [MongoConfig.java](src/main/java/org/cloudfoundry/community/servicebroker/mongodb/config/MongoConfig.java).
+You need to install and run MongoDB somewhere and configure connectivity in [application.yml](src/main/resources/application.yml).
 
 Build it:
 
