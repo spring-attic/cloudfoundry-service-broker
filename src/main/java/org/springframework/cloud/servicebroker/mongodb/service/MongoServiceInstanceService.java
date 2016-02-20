@@ -67,7 +67,7 @@ public class MongoServiceInstanceService implements ServiceInstanceService {
 
 	@Override
 	public GetLastServiceOperationResponse getLastOperation(GetLastServiceOperationRequest request) {
-		return new GetLastServiceOperationResponse(OperationState.SUCCEEDED);
+		return new GetLastServiceOperationResponse().withOperationState(OperationState.SUCCEEDED);
 	}
 
 	public ServiceInstance getServiceInstance(String id) {

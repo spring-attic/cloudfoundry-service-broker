@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.servicebroker.exception.ServiceBrokerException;
 import org.springframework.cloud.servicebroker.exception.ServiceInstanceBindingDoesNotExistException;
 import org.springframework.cloud.servicebroker.exception.ServiceInstanceBindingExistsException;
+import org.springframework.cloud.servicebroker.model.CreateServiceInstanceAppBindingResponse;
 import org.springframework.cloud.servicebroker.model.CreateServiceInstanceBindingRequest;
-import org.springframework.cloud.servicebroker.model.CreateServiceInstanceBindingResponse;
 import org.springframework.cloud.servicebroker.model.DeleteServiceInstanceBindingRequest;
 import org.springframework.cloud.servicebroker.model.ServiceBindingResource;
 import org.springframework.cloud.servicebroker.mongodb.IntegrationTestBase;
@@ -72,12 +72,12 @@ public class MongoServiceInstanceBindingServiceTest extends IntegrationTestBase 
 		when(repository.findOne(any(String.class))).thenReturn(null);
 		//when(mongo.createUser(any(String.class), any(String.class), any(String.class))).thenReturn(true);
 
-		CreateServiceInstanceBindingResponse response = service.createServiceInstanceBinding(buildCreateRequest());
+		CreateServiceInstanceAppBindingResponse response =
+				(CreateServiceInstanceAppBindingResponse) service.createServiceInstanceBinding(buildCreateRequest());
 
 		assertNotNull(response);
 		assertNotNull(response.getCredentials());
 		assertNull(response.getSyslogDrainUrl());
-		assertNull(response.getRouteServiceUrl());
 
 		verify(repository).save(isA(ServiceInstanceBinding.class));
 	}

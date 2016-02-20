@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.cloud.servicebroker.exception.ServiceInstanceBindingDoesNotExistException;
 import org.springframework.cloud.servicebroker.exception.ServiceInstanceBindingExistsException;
+import org.springframework.cloud.servicebroker.model.CreateServiceInstanceAppBindingResponse;
 import org.springframework.cloud.servicebroker.model.CreateServiceInstanceBindingRequest;
 import org.springframework.cloud.servicebroker.model.CreateServiceInstanceBindingResponse;
 import org.springframework.cloud.servicebroker.model.DeleteServiceInstanceBindingRequest;
@@ -61,7 +62,7 @@ public class MongoServiceInstanceBindingService implements ServiceInstanceBindin
 		binding = new ServiceInstanceBinding(bindingId, serviceInstanceId, credentials, null, request.getBoundAppGuid());
 		bindingRepository.save(binding);
 		
-		return new CreateServiceInstanceBindingResponse(credentials);
+		return new CreateServiceInstanceAppBindingResponse().withCredentials(credentials);
 	}
 
 	@Override
