@@ -21,7 +21,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
-		<springCloudServiceBrokerVersion>1.0.0.BUILD-SNAPSHOT</springCloudServiceBrokerVersion>
+		<springCloudServiceBrokerVersion>1.0.0.RC3</springCloudServiceBrokerVersion>
 	</properties>
 
 	<dependencies>
@@ -63,11 +63,8 @@
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone/</url>
 		</repository>
 	</repositories>
 </project>
