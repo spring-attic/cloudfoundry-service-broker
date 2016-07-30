@@ -19,7 +19,7 @@ import com.mongodb.ServerAddress;
 
 /**
  * Utility class for manipulating a Mongo database.
- * 
+ *
  * @author sgreenberg@pivotal.io
  *
  */
@@ -27,16 +27,16 @@ import com.mongodb.ServerAddress;
 public class MongoAdminService {
 
 	public static final String ADMIN_DB = "admin";
-	
+
 	private Logger logger = LoggerFactory.getLogger(MongoAdminService.class);
-	
+
 	private MongoClient client;
-	
+
 	@Autowired
 	public MongoAdminService(MongoClient client) {
 		this.client = client;
 	}
-	
+
 	public boolean databaseExists(String databaseName) throws MongoServiceException {
 		try {
 			return client.getDatabaseNames().contains(databaseName);
@@ -44,7 +44,7 @@ public class MongoAdminService {
 			throw handleException(e);
 		}
 	}
-	
+
 	public void deleteDatabase(String databaseName) throws MongoServiceException {
 		try{
 			client.getDB(ADMIN_DB);
@@ -53,11 +53,11 @@ public class MongoAdminService {
 			throw handleException(e);
 		}
 	}
-	
+
 	public DB createDatabase(String databaseName) throws MongoServiceException {
 		try {
 			DB db = client.getDB(databaseName);
-			
+
 			// save into a collection to force DB creation.
 			DBCollection col = db.createCollection("foo", null);
 			BasicDBObject obj = new BasicDBObject();
@@ -65,8 +65,8 @@ public class MongoAdminService {
 			col.insert(obj);
 			// drop the collection so the db is empty
 //			col.drop();
-			
-			return db; 
+
+			return db;
 		} catch (MongoException e) {
 			// try to clean up and fail
 			try {
@@ -75,7 +75,7 @@ public class MongoAdminService {
 			throw handleException(e);
 		}
 	}
-	
+
 	public void createUser(String database, String username, String password) throws MongoServiceException {
 		try {
 			DB db = client.getDB(database);
@@ -96,7 +96,7 @@ public class MongoAdminService {
 			throw handleException(e);
 		}
 	}
-	
+
 	public void deleteUser(String database, String username) throws MongoServiceException {
 		try {
 			DB db = client.getDB(database);
@@ -105,20 +105,20 @@ public class MongoAdminService {
 			throw handleException(e);
 		}
 	}
-	
+
 	public String getConnectionString(String database, String username, String password) {
 		return new StringBuilder()
 				.append("mongodb://")
 				.append(username)
-				.append(":")
-				.append(password)
-				.append("@")
+				// .append(":")
+				// .append(password)
+				// .append("@")
 				.append(getServerAddresses())
 				.append("/")
 				.append(database)
 				.toString();
 	}
-	
+
 	public String getServerAddresses() {
 		StringBuilder builder = new StringBuilder();
 		for (ServerAddress address : client.getAllAddress()) {
@@ -132,10 +132,10 @@ public class MongoAdminService {
 		}
 		return builder.toString();
 	}
-	
+
 	private MongoServiceException handleException(Exception e) {
 		logger.warn(e.getLocalizedMessage(), e);
 		return new MongoServiceException(e.getLocalizedMessage());
 	}
-	
+
 }
