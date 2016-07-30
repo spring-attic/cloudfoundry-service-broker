@@ -25,6 +25,7 @@ it's simply better to use Puppet to provision the Vagrant machine with Mongo
 
 ## Build the MongoDB Example Service Broker
 `git clone https://github.com/dave-malone/cloudfoundry-service-broker`
+
 `cd cloudfoundry-service-broker`
 
 The example service broker has been configured for use with PCFDev. This assumes that your MongoDB instance is routable at `host.pcfdev.io:27017`. Make the necessary changes in `src/main/resources/application.yml` to configure your service broker to use MongoDB deployed elsewhere.
