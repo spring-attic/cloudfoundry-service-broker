@@ -3,7 +3,7 @@ MongoDB Cloud Foundry Service Broker Example
 
 Suggested setup for local development:
 
-* [MongoDB instance](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+* [MongoDB instance](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 * [PCFDev](https://network.pivotal.io/products/pcfdev)
 
 
