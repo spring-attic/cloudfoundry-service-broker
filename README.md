@@ -48,7 +48,7 @@ Enable access to the service broker:
 `cf enable-service-access mongodb`
 
 Create a service instance:
-`cf cs mongodb  "Default Mongo Plan" mymongodb`
+`cf cs mongodb default mymongodb`
 
 
 ## Deploy sample app which uses a MongoDB service instance
