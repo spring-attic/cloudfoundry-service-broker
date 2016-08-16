@@ -82,8 +82,6 @@ public class MongoAdminServiceIntegrationTest extends IntegrationTestBase {
 		assertFalse("create should succeed", users.isEmpty());
 		
 		Document userDoc = (Document) users.get(0);
-		System.out.println("user doc: " + userDoc.toJson());
-		
 		
 		assertEquals("user list should contain the 'user' user", "user", userDoc.get("user"));
 	}
@@ -101,7 +99,6 @@ public class MongoAdminServiceIntegrationTest extends IntegrationTestBase {
 	    BasicDBObject createUserCmd = new BasicDBObject(commandArguments);
 		
 		Document result = client.getDatabase(DB_NAME).runCommand(createUserCmd);
-		System.out.println("Result: " + result.toJson());
 		assertEquals("create should succeed", result.getDouble("ok"), new Double(1.0d));
 		service.deleteUser(DB_NAME, "user");
 		
