@@ -53,7 +53,7 @@ public class MongoServiceInstanceService implements ServiceInstanceService {
 
 		if (mongo.databaseExists(instance.getServiceInstanceId())) {
 			// ensure the instance is empty
-//			mongo.deleteDatabase(instance.getServiceInstanceId());
+			mongo.deleteDatabase(instance.getServiceInstanceId());
 		}
 
 		MongoDatabase db = mongo.createDatabase(instance.getServiceInstanceId());
@@ -82,7 +82,7 @@ public class MongoServiceInstanceService implements ServiceInstanceService {
 			throw new ServiceInstanceDoesNotExistException(instanceId);
 		}
 
-//		mongo.deleteDatabase(instanceId);
+		mongo.deleteDatabase(instanceId);
 		repository.delete(instanceId);
 		return new DeleteServiceInstanceResponse();
 	}

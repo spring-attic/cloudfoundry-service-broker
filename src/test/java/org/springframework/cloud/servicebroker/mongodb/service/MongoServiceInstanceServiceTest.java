@@ -1,8 +1,13 @@
 package org.springframework.cloud.servicebroker.mongodb.service;
 
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,14 +28,8 @@ import org.springframework.cloud.servicebroker.mongodb.fixture.ServiceInstanceFi
 import org.springframework.cloud.servicebroker.mongodb.model.ServiceInstance;
 import org.springframework.cloud.servicebroker.mongodb.repository.MongoServiceInstanceRepository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 
 public class MongoServiceInstanceServiceTest extends IntegrationTestBase {
 
@@ -95,7 +94,7 @@ public class MongoServiceInstanceServiceTest extends IntegrationTestBase {
 		assertNull(response.getDashboardUrl());
 		assertFalse(response.isAsync());
 
-//		verify(mongo).deleteDatabase(request.getServiceInstanceId());
+		verify(mongo).deleteDatabase(request.getServiceInstanceId());
 		verify(repository).save(isA(ServiceInstance.class));
 	}
 
@@ -133,7 +132,7 @@ public class MongoServiceInstanceServiceTest extends IntegrationTestBase {
 		assertNotNull(response);
 		assertFalse(response.isAsync());
 
-//		verify(mongo).deleteDatabase(id);
+		verify(mongo).deleteDatabase(id);
 		verify(repository).delete(id);
 	}
 
@@ -148,7 +147,7 @@ public class MongoServiceInstanceServiceTest extends IntegrationTestBase {
 		assertNotNull(response);
 		assertFalse(response.isAsync());
 
-//		verify(mongo).deleteDatabase(request.getServiceInstanceId());
+		verify(mongo).deleteDatabase(request.getServiceInstanceId());
 		verify(repository).delete(request.getServiceInstanceId());
 	}
 
