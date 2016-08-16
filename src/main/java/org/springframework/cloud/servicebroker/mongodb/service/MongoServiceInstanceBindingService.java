@@ -50,7 +50,7 @@ public class MongoServiceInstanceBindingService implements ServiceInstanceBindin
 
 		String database = serviceInstanceId;
 		String username = bindingId;
-		String password = RandomStringUtils.random(15);
+		String password = RandomStringUtils.randomAlphanumeric(25);
 		
 		// TODO check if user already exists in the DB
 

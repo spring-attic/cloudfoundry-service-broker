@@ -49,8 +49,3 @@ Enable access to the service broker:
 
 Create a service instance:
 `cf cs mongodb default mymongodb`
-
-
-## Deploy sample app which uses a MongoDB service instance
-
-TODO
