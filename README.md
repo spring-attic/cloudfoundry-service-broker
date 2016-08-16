@@ -1,10 +1,18 @@
-MongoDB Cloud Foundry Service Broker Example
-=======================
+Sample Spring Boot project using the [Spring Cloud - Cloud Foundry Service Broker](https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker).
 
-Suggested setup for local development:
+# Overview
 
-* [MongoDB instance](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
-* [PCFDev](https://network.pivotal.io/products/pcfdev)
+This sample project uses the Spring Cloud - Cloud Foundry Service Broker to implement a MongoDB service. The MongoDB service also uses [spring-boot-data-mongodb](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-starters/spring-boot-starter-data-mongodb) to persist service instances and bindings.
+
+## Getting Started
+
+You need to install and run MongoDB somewhere and configure connectivity in [application.yml](src/main/resources/application.yml).
+
+Build it:
+
+    ./gradlew build
+
+After building, you can push the broker app to Cloud Foundry or deploy it some other way and then [register it to Cloud Foundry](http://docs.cloudfoundry.org/services/managing-service-brokers.html#register-broker).
 
 
 ## Enable Auth in your MongoDB instance
@@ -25,18 +33,10 @@ Test that authentication is working as expected:
 
 Refer to the MongoDB docs for more details: https://docs.mongodb.com/manual/tutorial/enable-authentication/
 
-## Build the MongoDB Example Service Broker
-
-```
-git clone https://github.com/dave-malone/cloudfoundry-service-broker
-cd cloudfoundry-service-broker
-./gradlew assemble
-```
 
 ## Deploy the Service Broker to Cloud Foundry
 
 The service broker is configured via environment variables, which are defined in the manifest.yml file. Make the necessary changes to the MongoDB config in order to connect to your Mongo instance.
-
 
 Push the service broker as an app to Cloud Foundry:
 `cf push`
