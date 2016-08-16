@@ -1,5 +1,6 @@
 package org.springframework.cloud.servicebroker.mongodb.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.servicebroker.exception.ServiceBrokerException;
 import org.springframework.cloud.servicebroker.exception.ServiceInstanceDoesNotExistException;
 import org.springframework.cloud.servicebroker.exception.ServiceInstanceExistsException;
@@ -13,13 +14,11 @@ import org.springframework.cloud.servicebroker.model.OperationState;
 import org.springframework.cloud.servicebroker.model.UpdateServiceInstanceRequest;
 import org.springframework.cloud.servicebroker.model.UpdateServiceInstanceResponse;
 import org.springframework.cloud.servicebroker.mongodb.exception.MongoServiceException;
-import org.springframework.cloud.servicebroker.mongodb.repository.MongoServiceInstanceRepository;
 import org.springframework.cloud.servicebroker.mongodb.model.ServiceInstance;
+import org.springframework.cloud.servicebroker.mongodb.repository.MongoServiceInstanceRepository;
 import org.springframework.cloud.servicebroker.service.ServiceInstanceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mongodb.DB;
 import com.mongodb.client.MongoDatabase;
 
 /**

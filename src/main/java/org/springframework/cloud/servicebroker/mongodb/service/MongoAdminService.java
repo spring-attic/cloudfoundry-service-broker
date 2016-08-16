@@ -27,11 +27,12 @@ import com.mongodb.client.MongoDatabase;
 @Service
 public class MongoAdminService {
 
-	public static final String ADMIN_DB = "admin";
-
 	private Logger logger = LoggerFactory.getLogger(MongoAdminService.class);
 
 	private MongoClient client;
+	
+	@Value("${mongodb.authdb:admin}")
+	private String adminDatabase;
 	
 	@Value("${mongodb.username:admin}")
 	private String adminUsername;
@@ -57,7 +58,7 @@ public class MongoAdminService {
 
 	public void deleteDatabase(String databaseName) throws MongoServiceException {
 		try{
-			client.getDatabase(ADMIN_DB);
+			client.getDatabase(adminDatabase);
 			client.dropDatabase(databaseName);
 		} catch (MongoException e) {
 			throw handleException(e);
@@ -90,7 +91,7 @@ public class MongoAdminService {
 	
 	
 	private void addDbOwnerRole(String databaseName){
-		MongoDatabase db = client.getDatabase(ADMIN_DB);
+		MongoDatabase db = client.getDatabase(adminDatabase);
 		Map<String, Object> roles = new BasicDBObject();
 		roles.put("role", "dbOwner");
 		roles.put("db", databaseName);
