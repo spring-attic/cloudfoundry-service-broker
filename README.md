@@ -14,7 +14,13 @@ TODO: Example mongodb deployment provisioned using a Vagrantfile
 `docker pull mongo`
 
 Start the Docker container:
-`docker run -p 27017:27017 -d mongo`
+`docker run --name mongodb -p 27017:27017 -d mongo --auth --authenticationDatabase admin -u mongo -p mongo`
+
+Add the Initial Admin User:
+```
+$ docker exec -it mongodb mongo admin
+> db.createUser({ user: 'admin', pwd: 'password', roles: [{"role" : "readWriteAnyDatabase","db" : "admin"},{"role" : "userAdminAnyDatabase","db" : "admin"}] });
+```
 
 
 ## Deploy MongoDB using Vagrant

@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mongodb.DB;
+import com.mongodb.client.MongoDatabase;
 
 /**
  * Mongo impl to manage service instances.  Creating a service does the following:
@@ -53,10 +54,10 @@ public class MongoServiceInstanceService implements ServiceInstanceService {
 
 		if (mongo.databaseExists(instance.getServiceInstanceId())) {
 			// ensure the instance is empty
-			mongo.deleteDatabase(instance.getServiceInstanceId());
+//			mongo.deleteDatabase(instance.getServiceInstanceId());
 		}
 
-		DB db = mongo.createDatabase(instance.getServiceInstanceId());
+		MongoDatabase db = mongo.createDatabase(instance.getServiceInstanceId());
 		if (db == null) {
 			throw new ServiceBrokerException("Failed to create new DB instance: " + instance.getServiceInstanceId());
 		}
@@ -82,7 +83,7 @@ public class MongoServiceInstanceService implements ServiceInstanceService {
 			throw new ServiceInstanceDoesNotExistException(instanceId);
 		}
 
-		mongo.deleteDatabase(instanceId);
+//		mongo.deleteDatabase(instanceId);
 		repository.delete(instanceId);
 		return new DeleteServiceInstanceResponse();
 	}

@@ -1,3 +1,5 @@
 mongodb:
-  host: host.pcfdev.io
+  host: localhost
   port: 27017
+  username: admin
+  password: password
