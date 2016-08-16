@@ -3,59 +3,52 @@ MongoDB Cloud Foundry Service Broker Example
 
 Suggested setup for local development:
 
-* [Docker](https://www.docker.com/products/docker)
+* [MongoDB instance](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 * [PCFDev](https://network.pivotal.io/products/pcfdev)
 
-For a more permanent deployment, consider deploying mongodb on traditional VMs.
 
-TODO: Example mongodb deployment provisioned using a Vagrantfile
-
-## Deploy MongoDB in a Docker Container
-`docker pull mongo`
-
-Start the Docker container:
-`docker run --name mongodb -p 27017:27017 -d mongo --auth --authenticationDatabase admin -u mongo -p mongo`
+## Enable Auth in your MongoDB instance
 
 Add the Initial Admin User:
 ```
-$ docker exec -it mongodb mongo admin
+$ mongo
 > db.createUser({ user: 'admin', pwd: 'password', roles: [{"role" : "readWriteAnyDatabase","db" : "admin"},{"role" : "userAdminAnyDatabase","db" : "admin"}] });
 ```
 
+Update your mongod.conf file to enable auth. For example: https://gist.github.com/dave-malone/31e35b80004681b84755a6a9ba46c9ae
 
-## Deploy MongoDB using Vagrant
+Restart your Mongo service. 
 
-TODO - fork this repo: https://github.com/bobthecow/vagrant-mongobox
-determine whether the above repo is a good enough starting point, or whether
-it's simply better to use Puppet to provision the Vagrant machine with Mongo
+Test that authentication is working as expected: 
+
+`mongo --authenticationDatabase "admin" -u "admin" -p "password"`
+
+Refer to the MongoDB docs for more details: https://docs.mongodb.com/manual/tutorial/enable-authentication/
 
 ## Build the MongoDB Example Service Broker
-`git clone https://github.com/dave-malone/cloudfoundry-service-broker`
 
-`cd cloudfoundry-service-broker`
-
-The example service broker has been configured for use with PCFDev. This assumes that your MongoDB instance is routable at `host.pcfdev.io:27017`. Make the necessary changes in `src/main/resources/application.yml` to configure your service broker to use MongoDB deployed elsewhere.
-
-`./gradlew assemble`
-
-The ready to deploy application jar file will now be available under the build/libs directory.
+```
+git clone https://github.com/dave-malone/cloudfoundry-service-broker
+cd cloudfoundry-service-broker
+./gradlew assemble
+```
 
 ## Deploy the Service Broker to Cloud Foundry
 
-Push the service broker as an app to Cloud Foundry:
-`cf push mongodb-service-broker -p build/libs/cloudfoundry-mongodb-service-broker.jar`
+The service broker is configured via environment variables, which are defined in the manifest.yml file. Make the necessary changes to the MongoDB config in order to connect to your Mongo instance.
 
-Get the default password from the application's logs:
-`cf logs mongodb-service-broker --recent | grep default`
+
+Push the service broker as an app to Cloud Foundry:
+`cf push`
 
 Register the service broker using the default username and the password obtained from the previous step:
-`cf csb mongodb user password http://mongodb-service-broker.local.pcfdev.io`
+`cf csb mongodb admin admin http://mongodb-service-broker.local.pcfdev.io`
 
 Enable access to the service broker:
-`cf enable-service-access "Mongo DB"`
+`cf enable-service-access mongodb`
 
 Create a service instance:
-`cf cs "Mongo DB"  "Default Mongo Plan" mymongodb`
+`cf cs mongodb  "Default Mongo Plan" mymongodb`
 
 
 ## Deploy sample app which uses a MongoDB service instance
