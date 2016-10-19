@@ -20,13 +20,13 @@ public class CatalogConfig {
 		return new Catalog(Collections.singletonList(
 				new ServiceDefinition(
 						"mongodb-service-broker",
-						"Mongo DB",
+						"mongodb",
 						"A simple MongoDB service broker implementation",
 						true,
 						false,
 						Collections.singletonList(
 								new Plan("mongo-plan",
-										"Default Mongo Plan",
+										"default",
 										"This is a default mongo plan.  All services are created equally.",
 										getPlanMetadata())),
 						Arrays.asList("mongodb", "document"),

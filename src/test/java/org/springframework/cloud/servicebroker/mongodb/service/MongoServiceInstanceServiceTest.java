@@ -1,7 +1,14 @@
 package org.springframework.cloud.servicebroker.mongodb.service;
 
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,14 +28,8 @@ import org.springframework.cloud.servicebroker.mongodb.fixture.ServiceInstanceFi
 import org.springframework.cloud.servicebroker.mongodb.model.ServiceInstance;
 import org.springframework.cloud.servicebroker.mongodb.repository.MongoServiceInstanceRepository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 
 public class MongoServiceInstanceServiceTest extends IntegrationTestBase {
 
@@ -45,7 +46,7 @@ public class MongoServiceInstanceServiceTest extends IntegrationTestBase {
 	private MongoServiceInstanceRepository repository;
 	
 	@Mock
-	private DB db;
+	private MongoDatabase db;
 
 	@Mock
 	private ServiceDefinition serviceDefinition;
@@ -66,7 +67,6 @@ public class MongoServiceInstanceServiceTest extends IntegrationTestBase {
 	
 	@Test
 	public void newServiceInstanceCreatedSuccessfully() throws Exception {
-		
 		when(repository.findOne(any(String.class))).thenReturn(null);
 		when(mongo.databaseExists(any(String.class))).thenReturn(false);
 		when(mongo.createDatabase(any(String.class))).thenReturn(db);

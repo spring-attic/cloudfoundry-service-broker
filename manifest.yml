@@ -1,6 +1,13 @@
 ---
 applications:
-- name: mongo-broker
+- name: mongodb-service-broker
   memory: 1G
   instances: 1
   path: build/libs/cloudfoundry-mongodb-service-broker.jar
+  env:
+    MONGODB_HOST: host.pcfdev.io
+    MONGODB_PORT: 27017
+    MONGODB_USERNAME: admin
+    MONGODB_PASSWORD: password
+    SECURITY_USER_NAME: admin
+    SECURITY_USER_PASSWORD: admin

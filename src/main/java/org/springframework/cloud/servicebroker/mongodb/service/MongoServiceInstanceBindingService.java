@@ -3,6 +3,8 @@ package org.springframework.cloud.servicebroker.mongodb.service;
 import java.util.Collections;
 import java.util.Map;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.servicebroker.exception.ServiceInstanceBindingDoesNotExistException;
 import org.springframework.cloud.servicebroker.exception.ServiceInstanceBindingExistsException;
 import org.springframework.cloud.servicebroker.model.CreateServiceInstanceAppBindingResponse;
@@ -12,7 +14,6 @@ import org.springframework.cloud.servicebroker.model.DeleteServiceInstanceBindin
 import org.springframework.cloud.servicebroker.mongodb.model.ServiceInstanceBinding;
 import org.springframework.cloud.servicebroker.mongodb.repository.MongoServiceInstanceBindingRepository;
 import org.springframework.cloud.servicebroker.service.ServiceInstanceBindingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -49,8 +50,7 @@ public class MongoServiceInstanceBindingService implements ServiceInstanceBindin
 
 		String database = serviceInstanceId;
 		String username = bindingId;
-		// TODO Password Generator
-		String password = "password";
+		String password = RandomStringUtils.randomAlphanumeric(25);
 		
 		// TODO check if user already exists in the DB
 
