@@ -23,11 +23,14 @@ $ mongo
 > db.createUser({ user: 'admin', pwd: 'password', roles: [{"role" : "readWriteAnyDatabase","db" : "admin"},{"role" : "userAdminAnyDatabase","db" : "admin"}] });
 ```
 
-Update your mongod.conf file to enable auth. For example: https://gist.github.com/dave-malone/31e35b80004681b84755a6a9ba46c9ae
+Update your mongod.conf file to enable authorization. For example, add lines like these: 
 
-Restart your Mongo service. 
+```
+security:
+  authorization: enabled
+```
 
-Test that authentication is working as expected: 
+Restart your Mongo service and test that authentication is working as expected: 
 
 `mongo --authenticationDatabase "admin" -u "admin" -p "password"`
 
@@ -36,7 +39,7 @@ Refer to the MongoDB docs for more details: https://docs.mongodb.com/manual/tuto
 
 ## Deploy the Service Broker to Cloud Foundry
 
-The service broker is configured via environment variables, which are defined in the manifest.yml file. Make the necessary changes to the MongoDB config in order to connect to your Mongo instance.
+The service broker is configured via environment variables, which are defined in the `manifest.yml` file. Make the necessary changes to the MongoDB config in order to connect to your Mongo instance.
 
 Push the service broker as an app to Cloud Foundry:
 `cf push`

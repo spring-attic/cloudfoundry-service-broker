@@ -1,11 +1,11 @@
 buildscript {
-    repositories {
-        maven { url "http://repo.spring.io/libs-snapshot" }
-        mavenLocal()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.1.RELEASE")
-    }
+	repositories {
+		maven { url "http://repo.spring.io/libs-snapshot" }
+		mavenLocal()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.1.RELEASE")
+	}
 }
 
 apply plugin: 'java'
@@ -14,32 +14,31 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 ext {
-    springCloudFoundryServiceBrokerVersion = "1.0.0.RELEASE"
-    version =  '0.1.0.BUILD-SNAPSHOT'
+	springCloudFoundryServiceBrokerVersion = "1.0.0.RELEASE"
+	version = '0.1.0.BUILD-SNAPSHOT'
 }
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 repositories {
-    mavenCentral()
-    maven { url "http://repo.spring.io/libs-milestone" }
+	mavenCentral()
+	maven { url "http://repo.spring.io/libs-milestone" }
 }
 
 dependencies {
-    compile("org.springframework.cloud:spring-cloud-cloudfoundry-service-broker:${springCloudFoundryServiceBrokerVersion}")
-	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
-	
-    compile("org.springframework.boot:spring-boot-starter-data-mongodb:1.4.0.RELEASE")
-    testCompile(group: "org.springframework.cloud", name: "spring-cloud-cloudfoundry-service-broker", version: "${springCloudFoundryServiceBrokerVersion}", classifier: "tests")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+	compile("org.springframework.cloud:spring-cloud-cloudfoundry-service-broker:${springCloudFoundryServiceBrokerVersion}")
+	compile("org.apache.commons:commons-lang3:3.4")
+	compile("org.springframework.boot:spring-boot-starter-data-mongodb:1.4.0.RELEASE")
+
+	testCompile(group: "org.springframework.cloud", name: "spring-cloud-cloudfoundry-service-broker", version: "${springCloudFoundryServiceBrokerVersion}", classifier: "tests")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
 jar {
-    baseName = 'cloudfoundry-mongodb-service-broker'
+	baseName = 'cloudfoundry-mongodb-service-broker'
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.9'
+	gradleVersion = '2.9'
 }
