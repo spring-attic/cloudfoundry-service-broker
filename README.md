@@ -20,6 +20,7 @@ After building, you can push the broker app to Cloud Foundry or deploy it some o
 Add the Initial Admin User:
 ```
 $ mongo
+> use admin
 > db.createUser({ user: 'admin', pwd: 'password', roles: [{"role" : "readWriteAnyDatabase","db" : "admin"},{"role" : "userAdminAnyDatabase","db" : "admin"}] });
 ```
 
