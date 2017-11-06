@@ -1,0 +1,21 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ template "fullname" . }}
+data:
+  application.yml: |
+    security:
+      user:
+        name: ${API_USERNAME:demo}
+        password: ${API_PASSWORD:demo}
+      #ignored: 
+      #- /**
+
+    spring:
+      profiles: kubernetes
+    mongodb:
+      host: mongodb-mongodb.default.svc.cluster.local
+      port: 27017
+      authdb: admin
+      username: ${MONGODB_USERNAME:root}
+      password: ${MONGODB_PASSWORD:password}
