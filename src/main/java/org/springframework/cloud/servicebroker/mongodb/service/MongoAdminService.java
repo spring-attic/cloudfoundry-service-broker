@@ -77,7 +77,9 @@ public class MongoAdminService {
 			
 			col.insertOne(document);
 			// drop the collection so the db is empty
-			col.drop();
+			// TODO: figure out how to clean the db in a different "transaction" so the create is flushed
+			// currently dropping the column is preventing the database from being created. 
+			// col.drop();
 
 			return db;
 		} catch (MongoException e) {
