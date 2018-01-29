@@ -152,7 +152,7 @@ public class MongoServiceInstanceServiceTest extends IntegrationTestBase {
 	}
 
 	private CreateServiceInstanceRequest buildCreateRequest() {
-		return new CreateServiceInstanceRequest(SVC_DEF_ID, SVC_PLAN_ID, "organizationGuid", "spaceGuid")
+		return new CreateServiceInstanceRequest(SVC_DEF_ID, SVC_PLAN_ID, "organizationGuid", "spaceGuid", null)
 				.withServiceInstanceId(ServiceInstanceFixture.getServiceInstance().getServiceInstanceId());
 	}
 
