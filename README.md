@@ -14,7 +14,7 @@ Build it:
 
     ./gradlew build
 
-After building, you can push the broker app to Cloud Foundry or deploy it some other way and then [register it to Cloud Foundry](http://docs.cloudfoundry.org/services/managing-service-brokers.html#register-broker).
+After building, you can push the broker app to Cloud Foundry or deploy it some other way and then [register it to Cloud Foundry](https://docs.cloudfoundry.org/services/managing-service-brokers.html#register-broker).
 
 
 ## Enable Auth in your MongoDB instance
@@ -48,7 +48,7 @@ Push the service broker as an app to Cloud Foundry:
 `cf push`
 
 Register the service broker using the default username and the password obtained from the previous step:
-`cf csb mongodb admin admin http://mongodb-service-broker.local.pcfdev.io`
+`cf csb mongodb admin admin https://mongodb-service-broker.local.pcfdev.io`
 
 Enable access to the service broker:
 `cf enable-service-access mongodb`
