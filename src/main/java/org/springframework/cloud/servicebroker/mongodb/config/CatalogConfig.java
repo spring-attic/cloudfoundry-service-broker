@@ -40,7 +40,7 @@ public class CatalogConfig {
 	private Map<String, Object> getServiceDefinitionMetadata() {
 		Map<String, Object> sdMetadata = new HashMap<>();
 		sdMetadata.put("displayName", "MongoDB");
-		sdMetadata.put("imageUrl", "http://info.mongodb.com/rs/mongodb/images/MongoDB_Logo_Full.png");
+		sdMetadata.put("imageUrl", "https://info.mongodb.com/rs/mongodb/images/MongoDB_Logo_Full.png");
 		sdMetadata.put("longDescription", "MongoDB Service");
 		sdMetadata.put("providerDisplayName", "Pivotal");
 		sdMetadata.put("documentationUrl", "https://github.com/spring-cloud-samples/cloudfoundry-mongodb-service-broker");

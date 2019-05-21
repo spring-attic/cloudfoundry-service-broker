@@ -3,7 +3,7 @@ kind: ClusterServiceBroker
 metadata:
   name: {{ template "fullname" . }}
 spec:
-  url: http://service-broker-mongodb-service-broker-mongodb.default.svc.cluster.local
+  url: https://service-broker-mongodb-service-broker-mongodb.default.svc.cluster.local
   authInfo:
     basic:
       secretRef:
