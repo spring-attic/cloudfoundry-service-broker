@@ -1,3 +1,5 @@
+# cloudfoundry-service-broker is no longer actively maintained by VMware, Inc.
+
 Sample Spring Boot project using the [Spring Cloud - Cloud Foundry Service Broker 1.x](https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker/tree/1.0.x).
 
 **Note:** This sample will not be updated to be compatible with `Spring Cloud Open Service Broker` 2.x. A separate Spring Cloud Open Service Broker 2.x [sample project](https://github.com/spring-cloud-samples/bookstore-service-broker) is available. 
